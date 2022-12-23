@@ -1,0 +1,42 @@
+worker_processes  1;
+
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    sendfile        on;
+    keepalive_timeout  65;
+
+    server {
+        listen       80;
+        server_name  localhost;
+
+
+
+        location / {
+             # перенаправление на порт с запущенным приложением:
+             proxy_pass http://localhost:8080;
+        }
+		
+	location /signin {
+                # "C:/Users/sezer/GitHub/WEB/Spring/SpringBootRestDemo" - путь до проекта в моей системе, возможно нужно сконфигурировать дополнительно
+		root C:/Users/sezer/GitHub/WEB/Spring/SpringBootRestDemo/src/main/resources/templates;
+                # html файл формы:
+		index form.html;
+        }
+
+    }
+
+}
