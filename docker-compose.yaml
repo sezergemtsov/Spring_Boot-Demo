@@ -1,0 +1,11 @@
+version: '1'
+
+services:
+
+  server:
+
+    image: openjdk:8-jdk-alpine
+    build: ./
+    ports:
+      - 8080:8080
+
